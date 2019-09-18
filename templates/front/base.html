@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock %}</title>
-<link rel="stylesheet" href="{{ static('front/css/front_base.css')}}">
-
+    <link rel="stylesheet" href="{{ static('front/css/front_base.css')}}">
+    {% block css_or_js %}{% endblock %}
 </head>
 <body>
 
@@ -27,6 +27,7 @@
     <span id="five"><a href="">xxx</a></span>
 </div>
 
-    {% block xxx %}     {% endblock %}
+
+    {% block content %}{% endblock %}
 </body>
 </html>

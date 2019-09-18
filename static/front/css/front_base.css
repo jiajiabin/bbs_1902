@@ -1,3 +1,7 @@
+.body{
+    padding-top: 10px;
+}
+
 /*logo设置*/
 .logo{
     float: left;
@@ -36,5 +40,5 @@
     width: 100%;
     overflow:hidden;
     text-align: center;
-
 }
+

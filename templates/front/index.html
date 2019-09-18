@@ -1,3 +1,39 @@
 {% extends 'front/base.html' %}
 
 {% block title %}论坛主页{% endblock %}
+
+{% block css_or_js %}<link rel="stylesheet" href="{{ static('front/css/front_index.css')}}">{% endblock %}
+
+{#帖子主页展示>>>>>>>>>>>>#}
+{% block content %}
+<div class="but_fatie">
+    <button>发帖</button>
+</div>
+
+<div class="search_tie">
+    <form action="#" method="post">
+        <span><input class="one" type="text" placeholder="查找帖子"></span>
+        <span><input class="two" type="submit" value="搜索"></span>
+    </form>
+</div>
+
+<div class="page_jump">
+    <span class="one"><a href="#">上一页</a></span>
+    <span class="two">第X{{ x }}页</span>
+    <span class="three"><a href="#">上一页</a></span>
+    <input class="four" type="text" placeholder="第x页">
+    <input class="five" type="submit" value="跳转">
+</div>
+
+<div class="data_tie">
+    <div class="tie_title">
+        <div class="one">帖子</div>
+        <div class="three">发帖时间</div>
+        <div class="two">作者</div>
+    </div>
+    <div class="tiezi">
+         <p>此处为帖子标题等信息，此处具体内容通过appand添加p标签</p>
+    </div>
+</div>
+{% endblock %}
+{#<<<<<<<<<<<<<<帖子主页展示#}

@@ -1,0 +1,79 @@
+/*发帖按钮*/
+.but_fatie{
+    float: left;
+    text-align: center;
+}
+.but_fatie button{
+    width: 100px;
+    height: 50px;
+    font-size: 30px;
+    line-height: 50px;
+}
+
+/*查找帖子*/
+.search_tie{
+    float: left;
+    width: 300px;
+}
+.search_tie .one{
+    overflow:hidden;
+    margin: 0 0 0 30px;
+    width: 200px;
+    height: 45px;
+}
+.search_tie .two{
+    overflow:hidden;
+    height: 50px;
+}
+
+/*跳转页面*/
+.page_jump{
+    float: right;
+    font-size: 20px;
+    line-height: 50px;
+    border: lime 1px solid;
+    height: 50px;
+    width: 300px;
+}
+.page_jump .four{
+    width: 50px;
+}
+
+/*帖子信息*/
+.data_tie{
+    overflow:hidden;
+    width: 100%;
+    border: palevioletred 1px solid;
+}
+.data_tie .tie_title{
+    border: orange 1px solid;
+    text-align: center;
+}
+.data_tie .tie_title .one{
+    float: left;
+    font-size: 30px;
+    line-height: 50px;
+    border: lime 1px solid;
+    width: 100px;
+    height: 50px;
+}
+.data_tie .tie_title .two{
+    float: right;
+    font-size: 30px;
+    line-height: 50px;
+    border: lime 1px solid;
+    width: 100px;
+    height: 50px;
+}
+.data_tie .tie_title .three{
+    float: right;
+    font-size: 30px;
+    line-height: 50px;
+    border: lime 1px solid;
+    width: 150px;
+    height: 50px;
+}
+.data_tie .tiezi{
+    overflow:hidden;
+    width: 100%;
+}
