@@ -1,0 +1,41 @@
+{% extends 'cms/base.html' %}
+
+{% block title %}
+修改邮箱
+{% endblock %}
+
+{% block page_title %}
+    {{ self.title() }}
+{% endblock %}
+
+{% block main_content %}
+    <form action="" method="post">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <table class="table table-bordered">
+        <tbody>
+            <tr>
+                <td>请输入原始邮箱:</td>
+                <td><input type="email" placeholder="邮箱" name="email" required autofocus></td>
+            </tr>
+             <tr>
+                <td>请输入密码:</td>
+                <td><input type="password" placeholder="密码" name="password" required></td>
+            </tr>
+             <tr>
+                <td>请输入修改后的邮箱:</td>
+                <td><input type="email" placeholder="修改后的邮箱" name="email1" required autofocus></td>
+            </tr>
+             <tr>
+                <td>点击确认更改:</td>
+                <td><button type="submit">立即更改</button></td>
+            </tr>
+            <tr>
+                <td>请谨慎修改邮箱</td><td><span>{{ message1 }}</span></td>
+            </tr>
+
+
+
+        </tbody>
+    </table>
+    </form>
+{% endblock %}

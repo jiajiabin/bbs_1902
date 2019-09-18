@@ -1,0 +1,32 @@
+{% from "common/macro.html" import static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+<link rel="stylesheet" href="{{ static('front/css/front_base.css')}}">
+
+</head>
+<body>
+
+<div class="logo"><img src="{{ url_for("static",filename="img/logo.jpg") }}" alt="">1902bbs论坛</div>
+
+<div class="user">
+    <span id="one"><a href="">用户信息</a></span>
+    <span id="two"><a href="">用户id</a></span>
+    <span id="three"><a href="">个人中心</a></span>
+    <span id="four"><a href="">设置</a></span>
+    <span id="five"><a href="">退出登录</a></span>
+</div>
+
+<div class="nav">
+    <span id="one"><a href="">主板块</a></span>
+    <span id="two"><a href="">python学习</a></span>
+    <span id="three"><a href="">资源交流</a></span>
+    <span id="four"><a href="">社区讨论</a></span>
+    <span id="five"><a href="">xxx</a></span>
+</div>
+
+    {% block xxx %}     {% endblock %}
+</body>
+</html>

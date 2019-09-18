@@ -1,0 +1,39 @@
+/*logo设置*/
+.logo{
+    float: left;
+    font-size: 30px;
+    line-height: 50px;
+    border: lime 1px solid;
+    width: 200px;
+    height: 50px;
+}
+.logo img{
+    width: 25px;
+}
+
+/*用户信息设置*/
+.user{
+    float: right;
+    font-size: 30px;
+    line-height: 50px;
+    border: lime 1px solid;
+    height: 50px;
+    width: 540px;
+}
+.user span{
+    border-right: #363a47 1px solid ;
+}
+.user #five{
+    border-right: none;
+}
+
+/*导航栏*/
+.nav{
+    font-size: 30px;
+    line-height: 50px;
+    border: lime 1px solid;
+    height: 50px;
+    width: 100%;
+    overflow:hidden
+
+}
