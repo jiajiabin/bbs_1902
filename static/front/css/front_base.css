@@ -4,7 +4,7 @@
     font-size: 30px;
     line-height: 50px;
     border: lime 1px solid;
-    width: 200px;
+    width: 220px;
     height: 50px;
 }
 .logo img{
@@ -18,7 +18,7 @@
     line-height: 50px;
     border: lime 1px solid;
     height: 50px;
-    width: 540px;
+    width: 550px;
 }
 .user span{
     border-right: #363a47 1px solid ;
@@ -34,6 +34,7 @@
     border: lime 1px solid;
     height: 50px;
     width: 100%;
-    overflow:hidden
+    overflow:hidden;
+    text-align: center;
 
 }
