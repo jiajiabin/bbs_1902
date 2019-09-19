@@ -19,7 +19,7 @@ bp.add_url_rule('/',view_func=CommonView.as_view('common'))
 # 跳转论坛主页
 class IndexView(views.MethodView):
     def get(self,message=None):
-        return render_template('front/index.html',message=message)
+        return render_template('front/front_index.html', message=message)
 front_bp.add_url_rule('/',view_func=IndexView.as_view('index1'))
 
 # 跳转后台管理

@@ -1,4 +1,8 @@
-from flask import Blueprint,render_template
+from flask import (
+    Blueprint,
+    render_template,
+    g
+)
 
 # 前台页面的蓝本bp
 bp = Blueprint("home",__name__,url_prefix='/home')
@@ -6,4 +10,7 @@ bp = Blueprint("home",__name__,url_prefix='/home')
 # 前台主页
 @bp.route('/',endpoint='index')
 def index():
-    return render_template('front/index.html')
+    user_id = "登录"
+    # if g.username:
+    #     user_id = g.username
+    return render_template('front/front_index.html', user_id=user_id)
