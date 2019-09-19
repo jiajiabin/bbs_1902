@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>注册-1902bbs论坛</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <!-- Custom styles for this template -->
+    <link href="{{ url_for('static',filename='cms/css/signin.css') }}" rel="stylesheet">
+  </head>
+
+  <body>
+
+    <div class="container">
+      <form class="form-signin" method="post">
+        <h2 class="form-signin-heading">请注册</h2>
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <label for="inputEmail" class="sr-only">邮箱：</label>
+        <input type="email" id="inputEmail" class="form-control" placeholder="邮箱" name="email" required autofocus>
+        <label for="inputPassword" class="sr-only">密码：</label>
+        <input type="password" id="inputPassword" class="form-control" placeholder="密码" name="password1" required>
+          <label for="inputPassword" class="sr-only">再次输入密码：</label>
+        <input type="password" id="inputPassword" class="form-control" placeholder="确认密码" name="password2" required>
+        <label for="inputEmail" class="sr-only">用户昵称：</label>
+        <input type="text" id="inputEmail" class="form-control" placeholder="用户昵称" name="petname" required autofocus>
+        <label for="inputEmail" class="sr-only">手机号码：</label>
+        <input type="tel" id="inputEmail" class="form-control" placeholder="手机号码" name="phonenumble" required autofocus>
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">立即注册</button>
+      </form>
+        {% if message %}
+            <p style="text-align: center;" class="text-danger">{{ message }}</p>
+        {% endif %}
+    </div> <!-- /container -->
+  </body>
+</html>

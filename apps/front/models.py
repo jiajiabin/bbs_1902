@@ -8,7 +8,7 @@ class FrontUser(db.Model):
     # 数据库存储数据
     __tablename__ = 'front_user'
     id = db.Column(db.Integer,primary_key=True, autoincrement=True)
-    username = db.Column(db.String(20), nullable=False)
+    username = db.Column(db.String(20), nullable=False, unique=True)
     _password = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(30), nullable=False, unique=True)
     phone_numble = db.Column(db.Integer, nullable=False, unique=True)
