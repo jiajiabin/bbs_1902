@@ -44,10 +44,8 @@ class Front_User_Article(db.Model):
     # 数据库存储数据
     __tablename__ = 'front_user_article'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    username = db.Column(db.String(20), nullable=False)
-    _password = db.Column(db.String(100), nullable=False)
-    email = db.Column(db.String(30), nullable=False, unique=True)
-    phone_numble = db.Column(db.Integer, nullable=False, unique=True)
-    join_time = db.Column(db.DateTime, default=datetime.now)
+    title = db.Column(db.String(50), nullable=False)
+    data_text = db.Column(db.Text,nullable=False)
+    post_time = db.Column(db.DateTime, default=datetime.now)
     uid = db.Column(db.Integer,db.ForeignKey("front_user.id"))
     article_author = db.relationship("FrontUser",backref="articles")
