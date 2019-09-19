@@ -47,5 +47,6 @@ class Front_User_Article(db.Model):
     title = db.Column(db.String(50), nullable=False)
     data_text = db.Column(db.Text,nullable=False)
     post_time = db.Column(db.DateTime, default=datetime.now)
+    # 外链连接用户表，1对多
     uid = db.Column(db.Integer,db.ForeignKey("front_user.id"))
     article_author = db.relationship("FrontUser",backref="articles")

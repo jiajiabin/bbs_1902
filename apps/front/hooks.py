@@ -12,5 +12,6 @@ def before_request():
         front_user = FrontUser.query.get(user_id)
         if front_user:
             g.cms_user = front_user
+    # 未登录则默认游客登录
     else:
         g.cms_user = None
