@@ -49,3 +49,5 @@ class Front_User_Article(db.Model):
     email = db.Column(db.String(30), nullable=False, unique=True)
     phone_numble = db.Column(db.Integer, nullable=False, unique=True)
     join_time = db.Column(db.DateTime, default=datetime.now)
+    uid = db.Column(db.Integer,db.ForeignKey("front_user.id"))
+    article_author = db.relationship("FrontUser",backref="articles")
