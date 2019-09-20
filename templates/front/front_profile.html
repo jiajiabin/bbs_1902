@@ -1,0 +1,42 @@
+{% extends 'front/front_base.html' %}
+
+{% block title %}
+个人中心
+{% endblock %}
+
+{% block css_or_js %}   {% endblock %}
+
+{% block content %}
+    {% set user = g.front_user %}
+    <table class="table table-bordered">
+        <tbody>
+            <tr>
+                <td>昵称:</td>
+                <td>{{ user.username }}</td>
+                <td><a href="">修改昵称</a></td>
+            </tr>
+            <tr>
+                <td>id序号:</td>
+                <td>{{ user.id }}</td>
+            </tr>
+             <tr>
+                <td>邮箱:</td>
+                <td>{{ user.email }}</td>
+                 <td><a href="">更改绑定邮箱</a></td>
+            </tr>
+             <tr>
+                <td>手机号:</td>
+                <td>{{ user.phone_numble }}</td>
+                 <td><a href="">更改绑定手机号</a></td>
+            </tr>
+             <tr>
+                <td>权限:</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>加入时间:</td>
+                <td>{{ user.join_time }}</td>
+            </tr>
+        </tbody>
+    </table>
+{% endblock %}

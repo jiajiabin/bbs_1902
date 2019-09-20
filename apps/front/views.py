@@ -109,3 +109,9 @@ bp.add_url_rule('/login/',view_func=FrontLogin.as_view('login'))
 def logout():
     del session[config.CMS_USER_ID]
     return redirect(url_for('home.login'))
+
+# 前台个人中心
+@bp.route('/profile/',endpoint='profile')
+@login_required
+def profile():
+    return render_template('front/front_profile.html')

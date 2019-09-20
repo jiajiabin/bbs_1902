@@ -15,7 +15,7 @@
     {% set user = g.front_user %}
     <span id="one"><a href="{{ url_for('home.login') }}">登录</a></span>
     <span id="two"><a href="{{ url_for('home.login') }}">{{ user.username|default("游客")}}</a></span>
-    <span id="three"><a href="">个人中心</a></span>
+    <span id="three"><a href="{{ url_for('home.profile') }}">个人中心</a></span>
     <span id="four"><a href="">设置</a></span>
     <span id="five"><a href="{{ url_for('home.logout') }}">退出登录</a></span>
 </div>
