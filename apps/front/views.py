@@ -12,6 +12,7 @@ from .forms import LogUpForm,LoginForm
 from .models import FrontUser
 from exts import db
 import config
+from .decorators import login_required
 
 # 前台页面的本bp
 bp = Blueprint("home",__name__,url_prefix='/home')
@@ -102,3 +103,9 @@ class FrontLogin(views.MethodView):
             message = form.get_errors()
             return self.get(message=message)
 bp.add_url_rule('/login/',view_func=FrontLogin.as_view('login'))
+
+# 前台用户注销
+@bp.route('/logout/',endpoint='logout')
+def logout():
+    del session[config.CMS_USER_ID]
+    return redirect(url_for('home.login'))
