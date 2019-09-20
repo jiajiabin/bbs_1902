@@ -8,7 +8,7 @@ from flask import (
     url_for,
     redirect,
 )
-from .forms import LogUpForm
+from .forms import LogUpForm,LoginForm
 from .models import FrontUser
 from exts import db
 import config
@@ -74,3 +74,31 @@ class SignUp(views.MethodView):
             message = form.get_errors()
             return self.get(message=message)
 bp.add_url_rule('/signup/', view_func=SignUp.as_view('signup'))
+
+# 前台用户登录，类视图
+class FrontLogin(views.MethodView):
+    def get(self,message=None):
+        return render_template('front/front_login.html',message=message)
+    def post(self):
+        # 得到表单数据
+        form = LoginForm(request.form)
+        if form.validate():
+            email = form.email.data
+            password = form.password.data
+            remember = form.remember.data
+            # 数据库查找对应的用户信息
+            user = FrontUser.query.filter_by(email=email).first()
+            if user and user.check_password(password):
+                session[config.Front_USER_ID] = user.id
+                if remember:
+                    # 如果session.permanent = True
+                    # session的持久化日期为 31天
+                    session.permanent = True
+                return redirect(url_for('home.index'))
+            else:
+                return self.get(message="用户名或者密码错误")
+        else:
+            # 得到错误信息并返回
+            message = form.get_errors()
+            return self.get(message=message)
+bp.add_url_rule('/login/',view_func=FrontLogin.as_view('login'))

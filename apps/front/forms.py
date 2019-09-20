@@ -11,3 +11,9 @@ class LogUpForm(BaseForm):
     petname = StringField(validators=[Length(2, 20, message="长度不符合要求"), InputRequired(message="请输入昵称")])
     phonenumble = StringField(validators=[Regexp(r'1[3-9]\d{9}',message="请输入正确格式的手机号"),InputRequired(message="请输入邮箱")])
     remember = IntegerField()
+
+# 前台登录表单类
+class LoginForm(BaseForm):
+    email = StringField(validators=[Email(message="请输入正确的邮箱类型"), InputRequired(message="请输入邮箱")])
+    password = StringField(validators=[Length(6, 20, message="请输入正确格式的密码")])
+    remember = IntegerField()
