@@ -115,3 +115,8 @@ def logout():
 @login_required
 def profile():
     return render_template('front/front_profile.html')
+
+# 发帖页面
+@bp.route('/post_msg/',endpoint='post_msg')
+def post_msg():
+    return render_template('front/post_message.html')
