@@ -65,8 +65,8 @@ class SignUp(views.MethodView):
                 # session的持久化日期为 31天
                 session.permanent = True
             user = FrontUser.query.filter_by(email=email).first()
-            session[config.CMS_USER_ID] = user.id
-            user_id = session.get(config.CMS_USER_ID)
+            session[config.Front_USER_ID] = user.id
+            user_id = session.get(config.Front_USER_ID)
             front_user = FrontUser.query.get(user_id)
             g.front_user = front_user
             return redirect(url_for("home.index"))
@@ -107,7 +107,7 @@ bp.add_url_rule('/login/',view_func=FrontLogin.as_view('login'))
 # 前台用户注销
 @bp.route('/logout/',endpoint='logout')
 def logout():
-    del session[config.CMS_USER_ID]
+    del session[config.Front_USER_ID]
     return redirect(url_for('home.login'))
 
 # 前台个人中心
