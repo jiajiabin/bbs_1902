@@ -19,11 +19,17 @@ SQLALCHEMY_TRACK_MODIFICATIONS = False
 CMS_USER_ID = 'ASDFSADFDSFSDFSDF'
 Front_USER_ID = 'ASDFSADFDSFSDFSDF'
 
+ACCESS_KEY = "uYM5IH5gOKDBTq2I_iGJxdKD-_j_EcMXEYLoDk4j"
+SECRET_KEY = "JVwLgSrcLIES4Tu5dZ5zN2a0oAy_X08H_cUakieP"
+BUCKET_NAME = "jiajiabin"
+DOMAIN = "http://py645ayfc.bkt.clouddn.com/"
+
 # 富文本编辑器 ueditor 的配置文件
 UEDITOR_UPLOAD_PATH = os.path.join(os.path.dirname(__file__), 'ufiles')
 # 先注释其中的七牛云配置
 # UEDITOR_UPLOAD_TO_QINIU = True
-# UEDITOR_QINIU_ACCESS_KEY = "p_p2-jutlTI1mlPCSfMEO8DyZnkQaiFrd9IOlvpz"
-# UEDITOR_QINIU_SECRET_KEY = "rN0YQux570vbhL5d8QvShrV-SnjzTdqhlfWstWri"
-# UEDITOR_QINIU_BUCKET_NAME = "bbs1902"
-# UEDITOR_QINIU_DOMAIN = "http://pxwhlyank.bkt.clouddn.com/"
+# UEDITOR_QINIU_ACCESS_KEY = ACCESS_KEY
+# UEDITOR_QINIU_SECRET_KEY = SECRET_KEY
+# UEDITOR_QINIU_BUCKET_NAME = BUCKET_NAME"
+# UEDITOR_QINIU_DOMAIN = "http://py645ayfc.bkt.clouddn.com"
+

@@ -11,6 +11,8 @@
     <script src="http://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="{{ static('cms/css/cms_base.css')}}">
     <script src="{{ static('cms/js/cms_base.js') }}"></script>
+
+    {% block cssorjs %}   {% endblock %}
 </head>
 <body>
     {% set user = g.cms_user %}
@@ -68,7 +70,7 @@
                 </li>
                 <li class="board-manage"><a href="#">板块管理</a>
                     <ul class="subnav">
-                      <li><a href="">1</a></li>
+                      <li><a href="{{ url_for('cms.uptoken') }}">上传图片</a></li>
                       <li><a href="">1</a></li>
                       <li><a href="">1</a></li>
                     </ul>

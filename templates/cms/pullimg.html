@@ -1,0 +1,57 @@
+
+{% extends 'cms/base.html' %}
+
+{% block title %}
+上传图片
+{% endblock %}
+
+{% block cssorjs %}
+    <script src="https://cdn.staticfile.org/Plupload/2.1.1/moxie.js"></script>
+    <script src="https://cdn.staticfile.org/Plupload/2.1.1/plupload.dev.js"></script>
+    <script src="https://cdn.staticfile.org/qiniu-js-sdk/1.0.14-beta/qiniu.js"></script>
+    <script src="{{ url_for('static',filename='cms/js/bbsqiniu.js') }}"></script>
+    <script>
+        window.onload = function () {
+            bbsqiniu.setUp({
+                //七牛云https://portal.qiniu.com/bucket/bbs1902/index
+                //融合cdn测试域名
+                'domain': "py645ayfc.bkt.clouddn.com",
+                'browse_button':'upload-btn',
+                'uptoken_url':'/cms/uptoken/',
+                'success':function (up,file,info) {
+                    var img_url = file.name;
+                    {#console.log(img_url)#}
+                    var img_input = document.getElementById('img-input');
+                    img_input.value = img_url;
+
+                    var img = document.getElementById('img');
+                    img.setAttribute('src',img_url);
+                }
+
+            })
+        }
+    </script>
+    <meta name="referrer" content="never">
+{% endblock %}
+
+
+<h1>{% block page_title %}上传图片{% endblock %}</h1>
+
+
+{% block main_content %}
+    {#    <button id="upload-btn">上传图片</button>#}
+{#    <input type="text" name="img_url" id="img-input">#}
+{#    <img src="" alt="" id="img">#}
+
+    <form method="post" enctype="multipart/form-data" action="{{ url_for('cms.uptoken') }}">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <div  style="width: 400px;height: 400px;">
+        <img src="{{ src }}" alt="">
+    </div>
+    <input type="file" id="img" name="imgup">
+    <button type="submit" id="btn">上传图片</button>
+    {{ session1 }}
+    </form>
+{% endblock %}
+
+

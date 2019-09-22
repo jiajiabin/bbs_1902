@@ -22,7 +22,8 @@ def create_cms_user(username,password,email):
     db.session.commit()
     print("cms用户添加成功")
 
-
+# 命令行生成管理员账号
+# python manage.py create_cms_user -u 123456 -p 123456 -e 123456@qq.com
 
 if __name__ == "__main__":
     manager.run()
