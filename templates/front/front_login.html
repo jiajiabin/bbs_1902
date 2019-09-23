@@ -36,6 +36,10 @@
         </div>
         <button class="btn btn-lg btn-primary btn-block" type="submit">立即登录</button>
       </form>
+        <br>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">
+            <a href="{{ url_for("home.signup") }}" style="color: yellow">前去注册登录</a>
+        </button>
         {% if message %}
             <p style="text-align: center;" class="text-danger">{{ message }}</p>
         {% endif %}

@@ -14,7 +14,7 @@ from .forms import LoginForm,ChangeForm,ChangeEmailForm
 from .models import CMSUser
 from .decorators import login_required
 from exts import db
-from qiniu import Auth,put_data,etag
+import qiniu
 
 # 后台的蓝本bp
 bp = Blueprint("cms",__name__,url_prefix='/cms')
@@ -125,41 +125,27 @@ class ChangeEmail(views.MethodView):
             return self.get(message=message)
 bp.add_url_rule('/changeemail/',view_func=ChangeEmail.as_view('changeemail'))
 
-def upload_file_qiniu(inputdata):
+# 七牛上传绑定
+@bp.route('/uptoken/')
+def uptoken():
     access_key = config.ACCESS_KEY
     secret_key = config.SECRET_KEY
-    # :param inputdata: bytes类型的数据
-    # :return: 文件在七牛的上传名字
-    # 构建鉴权对象
-    q = Auth(access_key, secret_key)
-    #要上传的空间
+    q = qiniu.Auth(access_key, secret_key)
+    # 要上传的空间
     bucket_name = config.BUCKET_NAME
-    #生成上传 Token，可以指定过期时间等
+    # 服务端生成 token
+    # token = q.upload_token(bucket_name, key, 3600)
     token = q.upload_token(bucket_name)
-    #如果需要对上传的图片命名，就把第二个参数改为需要的名字
-    ret1,ret2=put_data(token,None,data=inputdata)
-    #判断是否上传成功
-    if ret2.status_code!=200:
-        raise Exception('文件上传失败')
-    return ret1.get('key')
+    return jsonify({"uptoken":token})
 
-@bp.route('/uptoken',methods=['post','GET'])
-def uptoken():
-    session1 = None
-    src = None
+# 后台上传图片
+@bp.route("/upimg/", methods=['GET', 'POST'])
+def upimg():
     if request.method == 'GET':
         return render_template('cms/pullimg.html')
-    if request.method == 'POST':
-        # 获取前端数据
-        try:
-            data = request.files.get('imgup').read()
-        except Exception as e:
-            return jsonify(errmsg='获取前端数据错误')
-        # 使用自定义的上传文件系统，上传图片服务器
-        try:
-            filename = upload_file_qiniu(data)
-            src = "http://py645ayfc.bkt.clouddn.com/" + filename
-            session1 = "上传成功"
-        except Exception as e:
-            return  jsonify(errmsg='上传失败')
-    return render_template('cms/pullimg.html',session1=session1,src=src)
+    else:
+        # 和前端约定好，发送网络请求，不管用户名和密码是   否验证成功
+        # 我都返回同样格式的json对象给你
+        # {"code":200,"message":""}
+        imgInputval = request.form.get('imgInputval')
+        return render_template('cms/pullimg.html')

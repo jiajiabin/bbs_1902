@@ -1,3 +1,4 @@
+# -*-coding:utf-8 -*-
 from flask import (
     Blueprint,
     render_template,
@@ -36,7 +37,7 @@ class SignUp(views.MethodView):
             email = form.email.data
             password = form.password1.data
             username = form.petname.data
-            phonenumble = form.petname.data
+            phonenumble = form.phonenumble.data
             remember = form.remember.data
             # 数据库查找对应的邮箱信息
             emails = FrontUser.query.filter_by(email=email).first()
@@ -51,7 +52,7 @@ class SignUp(views.MethodView):
                 message = "已存在此名称"
                 return self.get(message=message)
             # 数据库查找对应的邮箱信息
-            phonenumbles = FrontUser.query.filter_by(email=phonenumble).first()
+            phonenumbles = FrontUser.query.filter_by(phone_numble=phonenumble).first()
             if phonenumbles:
                 # 得到错误信息并返回
                 message = "已存在此手机号码"
@@ -59,7 +60,6 @@ class SignUp(views.MethodView):
             user = FrontUser(username=username, password=password, email=email,phone_numble=phonenumble)
             db.session.add(user)
             db.session.commit()
-            print("front用户注册成功")
             if remember:
                 # 如果session.permanent = True
                 # session的持久化日期为 31天
@@ -69,7 +69,7 @@ class SignUp(views.MethodView):
             user_id = session.get(config.Front_USER_ID)
             front_user = FrontUser.query.get(user_id)
             g.front_user = front_user
-            return redirect(url_for("home.index"))
+            return redirect(url_for("home.login"))
         else:
             # 得到错误信息并返回
             message = form.get_errors()

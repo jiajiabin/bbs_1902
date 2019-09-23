@@ -19,10 +19,10 @@ SQLALCHEMY_TRACK_MODIFICATIONS = False
 CMS_USER_ID = 'ASDFSADFDSFSDFSDF'
 Front_USER_ID = 'ASDFSADFDSFSDFSDF'
 
-ACCESS_KEY = "uYM5IH5gOKDBTq2I_iGJxdKD-_j_EcMXEYLoDk4j"
-SECRET_KEY = "JVwLgSrcLIES4Tu5dZ5zN2a0oAy_X08H_cUakieP"
-BUCKET_NAME = "jiajiabin"
-DOMAIN = "http://py645ayfc.bkt.clouddn.com/"
+ACCESS_KEY = '9cfPzRDY3ZzJTKb1jz1WqR_v3xWfJDxzx7AAq-sx'
+SECRET_KEY = 'WpdY-0OArlfFHg39729m-TZzvzP-xUjPbrVn6h5N'
+BUCKET_NAME = "jiajiabin1"
+DOMAIN = "http://py9kh9odc.bkt.clouddn.com/"
 
 # 富文本编辑器 ueditor 的配置文件
 UEDITOR_UPLOAD_PATH = os.path.join(os.path.dirname(__file__), 'ufiles')

@@ -7,5 +7,5 @@ def login_required(func):
         if config.Front_USER_ID in session:
             return func(*args,**kwargs)
         else:
-            return redirect(url_for('front.login'))
+            return redirect(url_for('home.login'))
     return inner

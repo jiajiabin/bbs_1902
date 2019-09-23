@@ -13,6 +13,7 @@
 
 <div class="user">
     {% set user = g.front_user %}
+    <span id="one"><a href="{{ url_for('home.signup') }}">注册</a></span>
     <span id="one"><a href="{{ url_for('home.login') }}">登录</a></span>
     <span id="two"><a href="{{ url_for('home.login') }}">{{ user.username|default("游客")}}</a></span>
     <span id="three"><a href="{{ url_for('home.profile') }}">个人中心</a></span>

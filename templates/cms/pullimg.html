@@ -10,12 +10,15 @@
     <script src="https://cdn.staticfile.org/Plupload/2.1.1/plupload.dev.js"></script>
     <script src="https://cdn.staticfile.org/qiniu-js-sdk/1.0.14-beta/qiniu.js"></script>
     <script src="{{ url_for('static',filename='cms/js/bbsqiniu.js') }}"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+
     <script>
         window.onload = function () {
             bbsqiniu.setUp({
                 //七牛云https://portal.qiniu.com/bucket/bbs1902/index
                 //融合cdn测试域名
-                'domain': "py645ayfc.bkt.clouddn.com",
+                'domain': 'http://py9kh9odc.bkt.clouddn.com/',
                 'browse_button':'upload-btn',
                 'uptoken_url':'/cms/uptoken/',
                 'success':function (up,file,info) {
@@ -31,7 +34,46 @@
             })
         }
     </script>
-    <meta name="referrer" content="never">
+<script type="text/javascript">
+    var csrf_token = "{{ csrf_token() }}";
+    $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrf_token);
+            }
+        }
+    });
+</script>
+        <script>
+        $(function () {
+            $("#ajax").click(function (event) {
+                // event.preventDefault：阻止按钮的默认行为
+                event.preventDefault();
+                var imgInput = $('input[name="img_url"]');
+                var imgInputval = imgInput.val();
+                $.post({
+                    'url': '{{ url_for("cms.upimg") }}',
+                    'data': {
+                        'imgInputval': imgInputval
+                    },
+                    "success": function(data){
+                        if(data['code'] == 200){
+                            window.location = '/'
+                        }else{
+                            var message = data['message'];
+                            $("#message-p").html(message);
+                            $("#message-p").show();
+                        }
+                        {#console.log(data);#}
+                    },
+                    'fail': function (error) {
+                        console.log(error);
+                    }
+                });
+            });
+        });
+    </script>
+
 {% endblock %}
 
 
@@ -39,18 +81,14 @@
 
 
 {% block main_content %}
-    {#    <button id="upload-btn">上传图片</button>#}
-{#    <input type="text" name="img_url" id="img-input">#}
-{#    <img src="" alt="" id="img">#}
-
-    <form method="post" enctype="multipart/form-data" action="{{ url_for('cms.uptoken') }}">
-    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-    <div  style="width: 400px;height: 400px;">
-        <img src="{{ src }}" alt="">
+    <form method="post" action="">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <div style="border: blue 1px solid;width: 300px;height: 300px;">
+        <img src="" alt="" id="img" name="img">
     </div>
-    <input type="file" id="img" name="imgup">
-    <button type="submit" id="btn">上传图片</button>
-    {{ session1 }}
+    <button id="upload-btn">上传文件</button>
+    <input type="text" name="img_url" id="img-input">
+    <button id="ajax">确定</button>
     </form>
 {% endblock %}
 
