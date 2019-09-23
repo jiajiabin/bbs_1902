@@ -10,11 +10,12 @@ from flask import(
     jsonify
 )
 import config
-from .forms import LoginForm,ChangeForm,ChangeEmailForm
+from .forms import LoginForm,ChangeForm,ChangeEmailForm,PullBook
 from .models import CMSUser
 from .decorators import login_required
 from exts import db
 import qiniu
+from ..books.models import Books,Author,Tags
 
 # 后台的蓝本bp
 bp = Blueprint("cms",__name__,url_prefix='/cms')
@@ -149,3 +150,45 @@ def upimg():
         # {"code":200,"message":""}
         imgInputval = request.form.get('imgInputval')
         return render_template('cms/pullimg.html')
+
+# 后台上传书籍
+@bp.route("/pullbook/", methods=['GET', 'POST'])
+def pullbook():
+    message1 = ""
+    if request.method == 'GET':
+        return render_template('cms/pullbook.html', message1=message1)
+    else:
+        # 和前端约定好，发送网络请求，不管用户名和密码是   否验证成功
+        # 我都返回同样格式的json对象给你
+        # {"code":200,"message":""}
+        imgInputval = request.form.get('imgInputval')
+        # 得到表单数据
+        form = PullBook(request.form)
+        if form.validate():
+            name = form.name.data
+            authors = form.author.data
+            score = form.score.data
+            # 数据库查找对应的用户信息
+            books = Books.query.filter_by(bookname=name).first()
+            if not books:
+                # 修改数据库数据
+                book1 = Books(bookname=name,score=score,bookimg=imgInputval)
+                authorlist = authors.split(",")
+                for i in authorlist:
+                    if i :
+                        author1 = Author.query.filter_by(authorname=i).first()
+                        if not author1:
+                            author1 = Author(authorname=i)
+                        author1.bookes.append(book1)
+                        db.session.add(author1)
+                db.session.commit()
+                print("修改成功")
+                message1 = "书籍添加成功"
+                return render_template('cms/pullbook.html', message1=message1)
+            else:
+                message1 = "以存在此书籍"
+                return render_template('cms/pullbook.html',message1=message1)
+        else:
+            # 得到错误信息并返回
+            message = form.get_errors()
+            return render_template('cms/pullbook.html',message=message,message1=message1)

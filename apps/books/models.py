@@ -25,7 +25,7 @@ class Author(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     authorname = db.Column(db.String(20), nullable=False)
     # 作者简介允许为空
-    author_about = db.Column(db.Text)
+    author_about = db.Column(db.Text,default="")
     # 外链连接用户表，多对多
     bookes = db.relationship('Books',
                              secondary=author_books,
