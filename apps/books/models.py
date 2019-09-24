@@ -9,7 +9,7 @@ class Books(db.Model):
     bookname = db.Column(db.String(50), nullable=False, unique=True)
     # author = db.Column(db.String())
     score = db.Column(db.Float, default=0)
-    bookimg = db.Column(db.String(50))
+    bookimg = db.Column(db.String(100))
     join_time = db.Column(db.DateTime, default=datetime.now)
 
 author_books = db.Table(

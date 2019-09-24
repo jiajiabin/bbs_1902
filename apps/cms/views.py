@@ -16,6 +16,7 @@ from .decorators import login_required
 from exts import db
 import qiniu
 from ..books.models import Books,Author,Tags
+from .url import ImgUrl
 
 # 后台的蓝本bp
 bp = Blueprint("cms",__name__,url_prefix='/cms')
@@ -155,13 +156,16 @@ def upimg():
 @bp.route("/pullbook/", methods=['GET', 'POST'])
 def pullbook():
     message1 = ""
+    global ImgUrl
     if request.method == 'GET':
         return render_template('cms/pullbook.html', message1=message1)
     else:
         # 和前端约定好，发送网络请求，不管用户名和密码是   否验证成功
         # 我都返回同样格式的json对象给你
         # {"code":200,"message":""}
-        imgInputval = request.form.get('imgInputval')
+        if request.form.get('imgInputval'):
+            ImgUrl = request.form.get('imgInputval')
+        print(ImgUrl)
         # 得到表单数据
         form = PullBook(request.form)
         if form.validate():
@@ -172,7 +176,7 @@ def pullbook():
             books = Books.query.filter_by(bookname=name).first()
             if not books:
                 # 修改数据库数据
-                book1 = Books(bookname=name,score=score,bookimg=imgInputval)
+                book1 = Books(bookname=name,score=score,bookimg=ImgUrl)
                 authorlist = authors.split(",")
                 for i in authorlist:
                     if i :
