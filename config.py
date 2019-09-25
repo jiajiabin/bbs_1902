@@ -36,3 +36,6 @@ UEDITOR_UPLOAD_PATH = os.path.join(os.path.dirname(__file__), 'ufiles')
 
 # 分页展示图书的设置，每页数量
 PER_PAGE = 10
+
+# 天气查询相关
+
