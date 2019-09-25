@@ -7,7 +7,7 @@
 {% block css_or_js %}   {% endblock %}
 
 {% block content %}
-    {% set user = g.front_user %}
+    <br>
     <table class="table table-bordered">
         <tbody>
             <tr>
@@ -27,7 +27,12 @@
              <tr>
                 <td>手机号:</td>
                 <td>{{ user.phone_numble }}</td>
-                 <td><a href="">更改绑定手机号</a></td>
+                <td><a href="">更改绑定手机号</a></td>
+            </tr>
+             <tr>
+                <td>所在城市:</td>
+                <td>{{ user.city }}</td>
+                <td><a href="">更改所在城市</a></td>
             </tr>
              <tr>
                 <td>权限:</td>
@@ -40,3 +45,4 @@
         </tbody>
     </table>
 {% endblock %}
+

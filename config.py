@@ -38,4 +38,5 @@ UEDITOR_UPLOAD_PATH = os.path.join(os.path.dirname(__file__), 'ufiles')
 PER_PAGE = 10
 
 # 天气查询相关
-
+CODE_URL = 'http://api.asilu.com/weather/'
+DEFAULT_CITY = "武汉"

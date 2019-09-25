@@ -1,0 +1,104 @@
+{% extends 'front/front_base.html' %}
+
+{% block title %}
+天气预报
+{% endblock %}
+
+{% block css_or_js %}
+<script type="text/javascript">
+    var csrf_token = "{{ csrf_token() }}";
+    $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrf_token);
+            }
+        }
+    });
+</script>
+{% endblock %}
+
+{% block content %}
+    <br>
+    <h1>天气查询</h1>
+    <input    type="text" placeholder="请输出你的地址" id="tel"/>
+    <button id="ajax">确定</button>
+
+    <table class="table table-bordered" >
+        <th>当前城市</th>
+        <th>当前日期</th>
+        <th>温度</th>
+        <th>天气</th>
+        <th>风向</th>
+       <tbody id="citySearch"></tbody>
+    </table>
+    <br>
+
+    <h3>未来三天天气</h3>
+    <table class="table table-bordered">
+        <tbody>
+            <tr align='center'>
+                <td>日期：</td>
+                <td>温度：</td>
+                <td>天气：</td>
+                <td>风向：</td>
+            </tr>
+            <tr align='center' id="day_one"></tr>
+            <tr align='center' id="day_two"></tr>
+            <tr align='center' id="day_three"></tr>
+        </tbody>
+    </table>
+
+    <script type="text/javascript">
+    $(function(){
+        $('#ajax').on('click',function(){
+            var $telValue=$('#tel').val();
+            if($telValue=="") {
+                alert('不能为空！');
+                return;
+            }
+            $.ajax({
+                type: 'GET',
+                dataType:'jsonp', //解决跨域
+                jsonp:'callback',
+                jsonpCallback:'getName',
+                url: 'http://api.asilu.com/weather/',
+                data:{
+                    "city":$telValue
+                },
+                success: function(datas){
+                    var data = datas;
+                      /* $('#reslut').text("你查询的是:"+reslutData.city+","+"明天的天气是:"+reslutData.weather[0].weather+reslutData.weather[0].temp);*/
+                     var str="";
+                        str+="<tr align='center'>";
+                        str+="<td>"+data.city+"</td>";
+                        str+="<td>"+data.weather[0].date+"</td>";
+                        str+="<td>"+data.weather[0].temp+"</td>";
+                        str+="<td>"+data.weather[0].weather+"</td>";
+                        str+="<td>"+data.weather[0].wind+"</td>";
+                        str+="</tr>";
+                    $("#citySearch").html(str);
+                    var str1 = "";
+                        str1+="<td>"+data.weather[1].date+"</td>";
+                        str1+="<td>"+data.weather[1].temp+"</td>";
+                        str1+="<td>"+data.weather[1].weather+"</td>";
+                        str1+="<td>"+data.weather[1].wind+"</td>";
+                    $("#day_one").html(str1);
+                    var str2 = "";
+                        str2+="<td>"+data.weather[2].date+"</td>";
+                        str2+="<td>"+data.weather[2].temp+"</td>";
+                        str2+="<td>"+data.weather[2].weather+"</td>";
+                        str2+="<td>"+data.weather[2].wind+"</td>";
+                    $("#day_two").html(str2);
+                    var str3 = "";
+                        str3+="<td>"+data.weather[3].date+"</td>";
+                        str3+="<td>"+data.weather[3].temp+"</td>";
+                        str3+="<td>"+data.weather[3].weather+"</td>";
+                        str3+="<td>"+data.weather[3].wind+"</td>";
+                    $("#day_three").html(str3);
+                } ,
+            })
+        })
+    })
+    </script>
+
+{% endblock %}

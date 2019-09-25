@@ -12,6 +12,7 @@ class FrontUser(db.Model):
     _password = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(30), nullable=False, unique=True)
     phone_numble = db.Column(db.String(30), nullable=False, unique=True)
+    city = db.Column(db.String(50),default="wuhan")
     join_time = db.Column(db.DateTime, default=datetime.now)
 
     def __init__(self,username,password,email,phone_numble):

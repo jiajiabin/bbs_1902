@@ -4,6 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock %}</title>
+    <script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+    <link href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <link rel="stylesheet" href="{{ static('front/css/front_base.css')}}">
     {% block css_or_js %}{% endblock %}
 </head>
@@ -15,14 +19,14 @@
     {% set user = g.front_user %}
     <span id="one"><a href="{{ url_for('home.signup') }}">注册</a></span>
     <span id="one"><a href="{{ url_for('home.login') }}">登录</a></span>
-    <span id="two"><a href="{{ url_for('home.login') }}">{{ user.username|default("游客")}}</a></span>
+    <span id="two"><a href="{{ url_for('home.profile') }}">{{ user.username|default("游客")}}</a></span>
     <span id="three"><a href="{{ url_for('home.profile') }}">个人中心</a></span>
     <span id="four"><a href="">设置</a></span>
     <span id="five"><a href="{{ url_for('home.logout') }}">退出登录</a></span>
 </div>
 
 <div class="nav">
-    <span id="one"><a href="">主板块</a></span>
+    <span id="one"><a href="{{ url_for('home.index') }}">主板块</a></span>
     <span id="two"><a href="">python学习</a></span>
     <span id="three"><a href="{{ url_for('book.index') }}">学习丛书</a></span>
     <span id="four"><a href="">社区讨论</a></span>

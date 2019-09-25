@@ -4,6 +4,8 @@ from apps.cms import models as cms_models
 from apps.books import models as books_models
 from flask_migrate import Migrate,MigrateCommand
 from exts import db
+import requests
+import json
 
 
 # 绑定后台的数据，数据库模板
@@ -40,6 +42,21 @@ def create_test_post():
         db.session.add(author)
         db.session.commit()
     print("图书添加成功")
+
+# 用于天气预报测试
+@manager.command
+def weather_test():
+    response = requests.get("http://api.asilu.com/weather/?city=beijin")
+    response.raise_for_status()
+    weather_data = json.loads(response.text)
+    print(weather_data)
+# {'city': '北京', 'pm25': '75', 'weather': [{'date': '周三 09月25日', 'icon1': 'day/qing', 'icon2': 'night/qing', 'weath
+# er': '晴', 'wind': '南风微风', 'temp': '31 ~ 15℃'}, {'date': '周四', 'icon1': 'day/qing', 'icon2': 'night/qing', 'weat
+# her': '晴', 'wind': '东南风微风', 'temp': '30 ~ 15℃'}, {'date': '周五', 'icon1': 'day/duoyun', 'icon2': 'night/duoyun'
+# , 'weather': '多云', 'wind': '南风微风', 'temp': '29 ~ 15℃'}, {'date': '周六', 'icon1': 'day/qing', 'icon2': 'night/du
+# oyun', 'weather': '晴转多云', 'wind': '西南风微风', 'temp': '29 ~ 17℃'}], 'date': '2019-09-25', 'id': '101010100', 't'
+# : 1569340800}
+
 
 if __name__ == "__main__":
     manager.run()

@@ -27,16 +27,13 @@
 }
 
 /*跳转页面*/
-.page_jump{
+.weather{
     float: right;
     font-size: 20px;
     line-height: 50px;
     border: lime 1px solid;
     height: 50px;
-    width: 300px;
-}
-.page_jump .four{
-    width: 50px;
+    width: 500px;
 }
 
 /*帖子信息*/
