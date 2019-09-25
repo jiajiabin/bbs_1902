@@ -19,11 +19,24 @@ SQLALCHEMY_TRACK_MODIFICATIONS = False
 CMS_USER_ID = 'ASDFSADFDSFSDFSDF'
 Front_USER_ID = 'ASDFSADFDSFSDFSDF'
 
+# 七牛云秘钥，存储空间名、域名
+ACCESS_KEY = '9cfPzRDY3ZzJTKb1jz1WqR_v3xWfJDxzx7AAq-sx'
+SECRET_KEY = 'WpdY-0OArlfFHg39729m-TZzvzP-xUjPbrVn6h5N'
+BUCKET_NAME = "jiajiabin1"
+DOMAIN = "http://py9kh9odc.bkt.clouddn.com/"
+
 # 富文本编辑器 ueditor 的配置文件
 UEDITOR_UPLOAD_PATH = os.path.join(os.path.dirname(__file__), 'ufiles')
 # 先注释其中的七牛云配置
 # UEDITOR_UPLOAD_TO_QINIU = True
-# UEDITOR_QINIU_ACCESS_KEY = "p_p2-jutlTI1mlPCSfMEO8DyZnkQaiFrd9IOlvpz"
-# UEDITOR_QINIU_SECRET_KEY = "rN0YQux570vbhL5d8QvShrV-SnjzTdqhlfWstWri"
-# UEDITOR_QINIU_BUCKET_NAME = "bbs1902"
-# UEDITOR_QINIU_DOMAIN = "http://pxwhlyank.bkt.clouddn.com/"
+# UEDITOR_QINIU_ACCESS_KEY = ACCESS_KEY
+# UEDITOR_QINIU_SECRET_KEY = SECRET_KEY
+# UEDITOR_QINIU_BUCKET_NAME = BUCKET_NAME"
+# UEDITOR_QINIU_DOMAIN = "http://py645ayfc.bkt.clouddn.com"
+
+# 分页展示图书的设置，每页数量
+PER_PAGE = 10
+
+# 天气查询相关
+CODE_URL = 'http://api.asilu.com/weather/'
+DEFAULT_CITY = "武汉"

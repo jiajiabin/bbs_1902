@@ -1,24 +1,47 @@
-<!DOCTYPE HTML>
-<html lang="en-US">
-<head>
-    <meta charset="UTF-8">
-    <title>ueditor demo</title>
-</head>
-<body>
-<h1>发帖区</h1>
+{% extends 'front/front_base.html' %}
 
+{% block title %}
+ueditor demo
+{% endblock %}
+
+{% block css_or_js %}
+    <style type="text/css">
+        #jojo{
+            padding: 0px 600px;
+            color: darkolivegreen;
+        }
+    </style>
+<!--    <script src="{{ url_for('static', filename="common/js/jquery-1.12.4.min.js") }}"></script>  -->
+<!--    <script src="{{ url_for('static', filename="common/js/ajax_1902.js") }}"></script>  -->
+    <!-- 实例化编辑器 -->
+    <script type="text/javascript">
+    var csrf_token = "{{ csrf_token() }}";
+    $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrf_token);
+            }
+        }
+    });
+</script>
+    <script src="{{ url_for('static', filename="front/js/front_apost.js") }}"></script>
+{% endblock %}
+
+{% block content %}
+<form action="" method="post">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <h1 id="jojo">发帖区</h1>
+    <p>请勾选此次发帖的主题</p>
+        java:<input type="radio" name="title" value="java" >    <!-- 单选框 必须加 name属性  要保证 所有单选都是同一个 name 值 -->
+		python:<input type="radio" name="title"  checked="checked" value="python">
+		c:<input type="radio" name="title" value="c">
 <!-- 加载编辑器的容器 -->
-<script id="container" name="content" type="text/plain">这里写你的初始化内容</script>
+<script id="container" name="content" type="text/plain">{{ content }}</script>
 <!-- 配置文件 -->
 <script type="text/javascript" src="{{ url_for('static',filename="ueditor/ueditor.config.js") }}"></script>
 <!-- 编辑器源码文件 -->
 <script type="text/javascript" src="{{ url_for('static',filename="ueditor/ueditor.all.js") }}"></script>
 <script type="text/javascript" src="{{ url_for('static',filename="ueditor/lang/zh-cn/zh-cn.js") }}"></script>
-<!-- 实例化编辑器 -->
-<script type="text/javascript">
-    var ue = UE.getEditor('container', {
-        'serverUrl': '/ueditor/upload/'
-    });
-</script>
-</body>
-</html>
+<button id="submitBtn">提交</button>
+</form>
+{% endblock %}

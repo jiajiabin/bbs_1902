@@ -1,0 +1,113 @@
+
+{% extends 'cms/base.html' %}
+
+{% block title %}
+上传书籍
+{% endblock %}
+
+{% block cssorjs %}
+    <script src="https://cdn.staticfile.org/Plupload/2.1.1/moxie.js"></script>
+    <script src="https://cdn.staticfile.org/Plupload/2.1.1/plupload.dev.js"></script>
+    <script src="https://cdn.staticfile.org/qiniu-js-sdk/1.0.14-beta/qiniu.js"></script>
+    <script src="{{ url_for('static',filename='cms/js/bbsqiniu.js') }}"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+
+    <script>
+        window.onload = function () {
+            bbsqiniu.setUp({
+                //七牛云https://portal.qiniu.com/bucket/bbs1902/index
+                //融合cdn测试域名
+                'domain': 'http://py9kh9odc.bkt.clouddn.com/',
+                'browse_button':'upload-btn',
+                'uptoken_url':'/cms/uptoken/',
+                'success':function (up,file,info) {
+                    var img_url = file.name;
+                    {#console.log(img_url)#}
+                    var img_input = document.getElementById('img-input');
+                    img_input.value = img_url;
+
+                    var img = document.getElementById('img');
+                    img.setAttribute('src',img_url);
+                }
+
+            })
+        }
+    </script>
+<script type="text/javascript">
+    var csrf_token = "{{ csrf_token() }}";
+    $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrf_token);
+            }
+        }
+    });
+</script>
+        <script>
+        $(function () {
+            $("#ajax").click(function (event) {
+                // event.preventDefault：阻止按钮的默认行为
+                event.preventDefault();
+                var imgInput = $('input[name="img_url"]');
+                var imgInputval = imgInput.val();
+                $.post({
+                    'url': '{{ url_for("cms.pullbook") }}',
+                    'data': {
+                        'imgInputval': imgInputval
+                    },
+                    "success": function(data){
+                        if(data['code'] == 200){
+                            window.location = '/'
+                        }else{
+                            var message = data['message'];
+                            $("#message-p").html(message);
+                            $("#message-p").show();
+                        }
+                        {#console.log(data);#}
+                    },
+                    'fail': function (error) {
+                        console.log(error);
+                    }
+                });
+            });
+        });
+    </script>
+
+{% endblock %}
+
+
+<h1>{% block page_title %}上传书籍{% endblock %}</h1>
+
+
+{% block main_content %}
+    <form method="post" action="">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <div style="border: blue 1px solid;width: 200px;height: 200px;">
+        <img src="" alt="" id="img" name="img">
+    </div>
+    <button id="upload-btn">上传封面图片</button>
+    <input type="text" name="img_url" id="img-input">
+    <button id="ajax">请点击确定</button>
+    <table class="table table-bordered">
+        <tbody>
+            <tr>
+                <td>请输入书籍名:</td>
+                <td><input type="text" placeholder="书籍名字" name="name" required></td>
+            </tr>
+             <tr>
+                <td>请输入作者（多名作者以英文逗号分隔）:</td>
+                <td><input type="text" placeholder="作者, 作者" name="author" required></td>
+            </tr>
+             <tr>
+                <td>请出入评分</td>
+                <td><input type="text" placeholder="评分" name="score" required></td>
+            </tr>
+        </tbody>
+    </table>
+        <h2>{{ message1 }}</h2>
+    <button type="submit">提交</button>
+    </form>
+{% endblock %}
+
+

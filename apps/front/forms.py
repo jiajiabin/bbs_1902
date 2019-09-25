@@ -1,5 +1,6 @@
+# -*-coding:utf-8 -*-
 from ..forms import BaseForm
-from wtforms import StringField, IntegerField
+from wtforms import StringField, IntegerField,PasswordField,BooleanField
 from wtforms.validators import InputRequired, Email, Length, EqualTo,Regexp
 
 

@@ -1,5 +1,5 @@
 from ..forms import BaseForm
-from wtforms import StringField, IntegerField
+from wtforms import StringField, IntegerField, FloatField
 from wtforms.validators import InputRequired, Email, Length, EqualTo
 
 
@@ -23,3 +23,8 @@ class ChangeEmailForm(BaseForm):
     email = StringField(validators=[Email(message="请输入正确的邮箱类型"), InputRequired(message="请输入邮箱")])
     password = StringField(validators=[Length(6, 20, message="请输入正确格式的密码")])
     email1 = StringField(validators=[Email(message="请输入正确的邮箱类型"), InputRequired(message="请输入邮箱")])
+
+class PullBook(BaseForm):
+    name = StringField(validators=[Length(1, 50, message="书籍名称过长")])
+    author = StringField()
+    score = FloatField()

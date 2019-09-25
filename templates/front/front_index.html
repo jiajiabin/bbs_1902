@@ -17,12 +17,13 @@
     </form>
 </div>
 
-<div class="page_jump">
-    <span class="one"><a href="#">上一页</a></span>
-    <span class="two">第X{{ x }}页</span>
-    <span class="three"><a href="#">上一页</a></span>
-    <input class="four" type="text" placeholder="第x页">
-    <input class="five" type="submit" value="跳转">
+<div class="weather">
+{#天气预报#}
+    <span>{{ content['city'] }}</span>
+    <span>{{ content['date'] }}</span>
+    <span>{{ content['weather'] }}</span>
+    <span>{{ content['temp'] }}</span>
+    <span><a href="{{ url_for('home.weather_forecast') }}">天气预报</a></span>
 </div>
 
 <div class="data_tie">
