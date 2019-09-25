@@ -2,34 +2,17 @@ $(function () {
     var ue = UE.getEditor('container', {
         'serverUrl': '/ueditor/upload/'
     });
+    var title = $("input:checked").val()
 
     $("#submitBtn").click(function (event) {
         event.preventDefault();
-        // var titleInput = $('input[name="title"]');
-        // var boardSelect = $('select[name="board_id"]');
-        // var title = titleInput.val();
-        // var board_id = boardSelect.val();
-        var content = ue.getContent();
-        // console.log(content)
 
-        // ajax_1902.post({
-        //     'url':'/msg/post_msg/',
-        //     'data':{
-        //         'content':content
-        //     },
-        //     'success':function (data) {
-        //         if(data['code'] == 200){
-        //
-        //         }else {
-        //
-        //         }
-        //         console.log(content)
-        //     }
-        // })
+        var content = ue.getContent();
         $.post({
             'url': '/msg/post_msg/',
             'data': {
-                'content': content
+                'content': content,
+                "title":title
             },
             "success": function (data) {
                 if (data['code'] == 200) {

@@ -5,6 +5,12 @@ ueditor demo
 {% endblock %}
 
 {% block css_or_js %}
+    <style type="text/css">
+        #jojo{
+            padding: 0px 600px;
+            color: darkolivegreen;
+        }
+    </style>
 <!--    <script src="{{ url_for('static', filename="common/js/jquery-1.12.4.min.js") }}"></script>  -->
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <!--    <script src="{{ url_for('static', filename="common/js/ajax_1902.js") }}"></script>  -->
@@ -25,7 +31,11 @@ ueditor demo
 {% block content %}
 <form action="" method="post">
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-    <h1 class="text-center">发帖区</h1>
+    <h1 id="jojo">发帖区</h1>
+    <p>请勾选此次发帖的主题</p>
+        java:<input type="radio" name="title" value="java" >    <!-- 单选框 必须加 name属性  要保证 所有单选都是同一个 name 值 -->
+		python:<input type="radio" name="title"  checked="checked" value="python">
+		c:<input type="radio" name="title" value="c">
 <!-- 加载编辑器的容器 -->
 <script id="container" name="content" type="text/plain">{{ content }}</script>
 <!-- 配置文件 -->
@@ -33,7 +43,6 @@ ueditor demo
 <!-- 编辑器源码文件 -->
 <script type="text/javascript" src="{{ url_for('static',filename="ueditor/ueditor.all.js") }}"></script>
 <script type="text/javascript" src="{{ url_for('static',filename="ueditor/lang/zh-cn/zh-cn.js") }}"></script>
-
 <button id="submitBtn">提交</button>
 </form>
 {% endblock %}
