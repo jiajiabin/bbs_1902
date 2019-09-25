@@ -19,6 +19,7 @@ SQLALCHEMY_TRACK_MODIFICATIONS = False
 CMS_USER_ID = 'ASDFSADFDSFSDFSDF'
 Front_USER_ID = 'ASDFSADFDSFSDFSDF'
 
+# 七牛云秘钥，存储空间名、域名
 ACCESS_KEY = '9cfPzRDY3ZzJTKb1jz1WqR_v3xWfJDxzx7AAq-sx'
 SECRET_KEY = 'WpdY-0OArlfFHg39729m-TZzvzP-xUjPbrVn6h5N'
 BUCKET_NAME = "jiajiabin1"
@@ -33,3 +34,5 @@ UEDITOR_UPLOAD_PATH = os.path.join(os.path.dirname(__file__), 'ufiles')
 # UEDITOR_QINIU_BUCKET_NAME = BUCKET_NAME"
 # UEDITOR_QINIU_DOMAIN = "http://py645ayfc.bkt.clouddn.com"
 
+# 分页展示图书的设置，每页数量
+PER_PAGE = 10

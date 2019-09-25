@@ -1,7 +1,7 @@
 from flask import (
     Blueprint,
     render_template,
-    request
+    request,
 )
 from ..front.decorators import login_required
 

@@ -3,10 +3,11 @@ import config
 from flask import session,g
 from .models import FrontUser
 
+front_user = ""
 # 钩子函数
 @bp.before_request
 def before_request():
-    if config.Front_USER_ID != "" and config.Front_USER_ID in session:
+    if config.Front_USER_ID in session:
         user_id = session.get(config.Front_USER_ID)
         # 通过ID在数据库查找用户对应的模型对象
         front_user = FrontUser.query.get(user_id)

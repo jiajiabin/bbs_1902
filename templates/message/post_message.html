@@ -1,11 +1,13 @@
-<!DOCTYPE HTML>
-<html lang="en-US">
-<head>
-    <meta charset="UTF-8">
-    <title>ueditor demo</title>
-{#    <script src="{{ url_for('static', filename="common/js/jquery-1.12.4.min.js") }}"></script>#}
+{% extends 'front/front_base.html' %}
+
+{% block title %}
+ueditor demo
+{% endblock %}
+
+{% block css_or_js %}
+<!--    <script src="{{ url_for('static', filename="common/js/jquery-1.12.4.min.js") }}"></script>  -->
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-{#    <script src="{{ url_for('static', filename="common/js/ajax_1902.js") }}"></script>#}
+<!--    <script src="{{ url_for('static', filename="common/js/ajax_1902.js") }}"></script>  -->
     <!-- 实例化编辑器 -->
     <script type="text/javascript">
     var csrf_token = "{{ csrf_token() }}";
@@ -17,12 +19,10 @@
         }
     });
 </script>
-
     <script src="{{ url_for('static', filename="front/js/front_apost.js") }}"></script>
+{% endblock %}
 
-</head>
-<body>
-
+{% block content %}
 <form action="" method="post">
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
     <h1 class="text-center">发帖区</h1>
@@ -36,5 +36,4 @@
 
 <button id="submitBtn">提交</button>
 </form>
-</body>
-</html>
+{% endblock %}

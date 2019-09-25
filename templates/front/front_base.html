@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<div class="logo"><img src="{{ url_for("static",filename="img/logo.jpg") }}" alt="">1902bbs论坛</div>
+<div class="logo"><a href="{{ url_for('home.index') }}"><img src="{{ url_for("static",filename="img/logo.jpg") }}" alt="">1902bbs论坛</a></div>
 
 <div class="user">
     {% set user = g.front_user %}

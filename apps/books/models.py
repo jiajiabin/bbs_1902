@@ -7,6 +7,7 @@ class Books(db.Model):
     __tablename__ = 'books'
     id = db.Column(db.Integer,primary_key=True, autoincrement=True)
     bookname = db.Column(db.String(50), nullable=False, unique=True)
+    text = db.Column(db.Text, default="暂时没有内容")
     # author = db.Column(db.String())
     score = db.Column(db.Float, default=0)
     bookimg = db.Column(db.String(100))
