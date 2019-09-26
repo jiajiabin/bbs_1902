@@ -6,7 +6,7 @@ $(function () {
 
     $("#submitBtn").click(function (event) {
         event.preventDefault();
-
+        alert("您的帖子已成功提交 可点击查看按钮进行查看")
         var content = ue.getContent();
         $.post({
             'url': '/msg/post_msg/',

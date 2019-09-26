@@ -1,0 +1,20 @@
+{% extends 'cms/base.html' %}
+
+{% block title %}
+上传书籍内容
+{% endblock %}
+
+{% block page_title %}
+    {{ self.title() }}
+{% endblock %}
+
+{% block main_content %}
+    <form action="" method="post">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <h3>书籍名</h3>
+        <input type="text" value="">
+        <h3>输入书籍内容</h3>
+        <input type="text">
+        <input type="submit" value="提交">
+    </form>
+{% endblock %}

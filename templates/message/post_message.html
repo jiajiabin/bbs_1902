@@ -43,5 +43,6 @@ ueditor demo
 <script type="text/javascript" src="{{ url_for('static',filename="ueditor/ueditor.all.js") }}"></script>
 <script type="text/javascript" src="{{ url_for('static',filename="ueditor/lang/zh-cn/zh-cn.js") }}"></script>
 <button id="submitBtn">提交</button>
+    <a href="{{ url_for("msg.show_msg") }}">查看</a>
 </form>
 {% endblock %}

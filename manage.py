@@ -2,6 +2,8 @@ from flask_script import Manager
 from bbs import create_app
 from apps.cms import models as cms_models
 from apps.books import models as books_models
+from apps.msg import models as msg_models
+from apps.front import models as front_models
 from flask_migrate import Migrate,MigrateCommand
 from exts import db
 import requests
@@ -57,6 +59,18 @@ def weather_test():
 # oyun', 'weather': '晴转多云', 'wind': '西南风微风', 'temp': '29 ~ 17℃'}], 'date': '2019-09-25', 'id': '101010100', 't'
 # : 1569340800}
 
+@manager.command
+def create_post_message():
+    user = front_models.FrontUser.query.filter_by(username="jojocoolcool").first()
+    for x in range(1,200):
+        title = "标题:%s" %x
+        data_text = "内容:%s" %x
+        post = msg_models.Front_User_Article(title=title,data_text=data_text)
+        # post.article_author.append(user)
+        user.articles.append(post)
+        db.session.add(post)
+        db.session.commit()
+    print("帖子添加成功")
 
 if __name__ == "__main__":
     manager.run()
