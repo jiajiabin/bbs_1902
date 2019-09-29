@@ -15,11 +15,11 @@ bp = Blueprint("book",__name__,url_prefix='/book')
 def index():
     page = request.args.get(get_page_parameter(), type=int, default=1)  # 从前端获取你要查看的页码
     # select * from posts limit start,总共多少条;
-    start = (page - 1) * config.PER_PAGE  # 从哪里开始查询  索引值
+    start = (page - 1) * config.PER_PAGE_BOOK  # 从哪里开始查询  索引值
     # 第几页 start end 每页显示条数
     # 1      0     9      10
     # 2      10    19     10
-    end = start + config.PER_PAGE  # 在哪里结束    索引值
+    end = start + config.PER_PAGE_BOOK  # 在哪里结束    索引值
 
     # 表示从数据库中查出来的所有的帖子文章   每一页的
     posts = None

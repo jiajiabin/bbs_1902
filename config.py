@@ -35,6 +35,7 @@ UEDITOR_UPLOAD_PATH = os.path.join(os.path.dirname(__file__), 'ufiles')
 # UEDITOR_QINIU_DOMAIN = "http://py645ayfc.bkt.clouddn.com"
 
 # 分页展示图书的设置，每页数量
+PER_PAGE_BOOK = 9
 PER_PAGE = 10
 
 # 天气查询相关

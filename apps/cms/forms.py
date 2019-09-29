@@ -1,5 +1,5 @@
 from ..forms import BaseForm
-from wtforms import StringField, IntegerField, FloatField
+from wtforms import StringField, IntegerField, FloatField,TextAreaField
 from wtforms.validators import InputRequired, Email, Length, EqualTo
 
 
@@ -28,3 +28,7 @@ class PullBook(BaseForm):
     name = StringField(validators=[Length(1, 50, message="书籍名称过长")])
     author = StringField()
     score = FloatField()
+
+class BookForm(BaseForm):
+    bookname = StringField(validators=[Length(2, 50, message="请输入正确格式的书名")])
+    booktextarea = TextAreaField()

@@ -84,7 +84,7 @@
     <form method="post" action="">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
     <div style="border: blue 1px solid;width: 200px;height: 200px;">
-        <img src="" alt="" id="img" name="img">
+        <img src="" alt="" id="img" name="img" style="height: 200px;">
     </div>
     <button id="upload-btn">上传封面图片</button>
     <input type="text" name="img_url" id="img-input">
@@ -107,7 +107,7 @@
     </table>
     <button type="submit">提交</button>
         <br>
-            <h2><a href="{{ url_for('cms.pullbooktext') }}">{{ message1 }}</a></h2>
+            <h2><a href="{{ url_for('cms.pullbooktext') }}">{{ message1|default("点击上传书籍内容") }}</a></h2>
 
     </form>
 {% endblock %}

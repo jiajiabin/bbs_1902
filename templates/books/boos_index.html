@@ -11,14 +11,22 @@
 {% endblock %}
 
 {% block content %}
-{% for post in posts %}
-      <div class="media">
-  <div class="media-body">
-    <h4 class="media-heading">{{ post.bookname }}</h4>
-    <p>{{ post.text }}</p>
-  </div>
-</div>
-    {% endfor %}
+    <div style="position:relative;width: 906px;border: 1px sienna solid;margin:0 auto">
+        {% for post in posts %}
+            <div class="media" style="width: 300px;height: 400px;border: 1px yellow solid;float: left;margin: 0">
+                <div class="media-body">
+                    <img src="{{ post.bookimg }}" alt="" style="width: 150px;height: 200px;margin:0 auto" >
+                    <h4 class="media-heading">{{ post.bookname }}</h4>
+                    <p>
+                        {% for author in post.author %}
+                            <span>{{ author.authorname }}</span>
+                        {% endfor %}
+                    </p>
+                    <p>评分：{{ post.score }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
     <div style="text-align: center">
         {{ pagination.links }}
     </div>

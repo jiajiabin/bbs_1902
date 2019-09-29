@@ -31,5 +31,8 @@ class Article_Comment(db.Model):
     comment_text = db.Column(db.Text,nullable=False)
     post_time = db.Column(db.DateTime, default=datetime.now)
     # 外链连接帖子表，1对多
-    uid = db.Column(db.Integer,db.ForeignKey("front_user_article.id"))
+    uid1 = db.Column(db.Integer,db.ForeignKey("front_user_article.id"))
     articles = db.relationship("Front_User_Article",backref="comment")
+    # 外链连接作者表，1对多
+    uid2 = db.Column(db.Integer,db.ForeignKey("front_user.id"))
+    authors = db.relationship("FrontUser",backref="authors_comment")

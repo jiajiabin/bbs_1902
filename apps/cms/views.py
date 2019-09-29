@@ -10,12 +10,12 @@ from flask import(
     jsonify
 )
 import config
-from .forms import LoginForm,ChangeForm,ChangeEmailForm,PullBook
+from .forms import LoginForm,ChangeForm,ChangeEmailForm,PullBook,BookForm
 from .models import CMSUser
 from .decorators import login_required
 from exts import db
 import qiniu
-from ..books.models import Books,Author,Tags
+from ..books.models import Books,Author,Tags,BookText
 from .url import ImgUrl
 
 # 后台的蓝本bp
@@ -189,7 +189,7 @@ def pullbook():
                 message1 = "书籍添加成功，请点击添加书籍详细内容"
                 return render_template('cms/pullbook.html',message1=message1)
             else:
-                message1 = "以存在此书籍"
+                message1 = "已存在此书籍"
                 return render_template('cms/pullbook.html',message1=message1)
         else:
             # 得到错误信息并返回
@@ -199,29 +199,28 @@ def pullbook():
 
 # 后台上传书籍内容
 class PullBookText(views.MethodView):
-    def get(self):
-
-        return render_template('cms/pullbooktext.html')
-    # def post(self):
-    #     # 得到表单数据
-    #     form = ChangeForm(request.form)
-    #     if form.validate():
-    #         password1 = form.password1.data
-    #         password2 = form.password2.data
-    #         # 数据库查找对应的用户信息
-    #         user = CMSUser.query.filter_by(email=g.cms_user.email).first()
-    #         if user.check_password(password1):
-    #             session[config.CMS_USER_ID] = user.id
-    #             # 修改数据库数据
-    #             user.password = password2
-    #             db.session.commit()
-    #             print("修改成功")
-    #             message1="密码修改成功"
-    #             return render_template('cms/cms_chpassword.html',message=None,message1=message1)
-    #         else:
-    #             return self.get(message="原始密码错误")
-    #     else:
-    #         # 得到错误信息并返回
-    #         message = form.get_errors()
-    #         return self.get(message=message)
+    def get(self,message=""):
+        return render_template('cms/pullbooktext.html',message=message)
+    def post(self):
+        # 得到表单数据
+        form = BookForm(request.form)
+        if form.validate():
+            bookname = form.bookname.data
+            booktextarea = form.booktextarea.data
+            # 数据库查找对应的书籍信息
+            book = Books.query.filter_by(bookname=bookname).first()
+            if book:
+                text = BookText(text=booktextarea)
+                book.texts = text
+                db.session.add(book)
+                db.session.commit()
+                print("添加成功")
+                message = "添加书籍内容成功"
+                return render_template('cms/pullbooktext.html',message=message)
+            else:
+                return self.get(message="原始密码错误")
+        else:
+            # 得到错误信息并返回
+            message = form.get_errors()
+            return self.get(message=message)
 bp.add_url_rule('/pullbooktext/',view_func=PullBookText.as_view('pullbooktext'))

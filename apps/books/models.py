@@ -7,7 +7,6 @@ class Books(db.Model):
     __tablename__ = 'books'
     id = db.Column(db.Integer,primary_key=True, autoincrement=True)
     bookname = db.Column(db.String(50), nullable=False, unique=True)
-    # author = db.Column(db.String())
     score = db.Column(db.Float, default=0)
     bookimg = db.Column(db.String(100))
     join_time = db.Column(db.DateTime, default=datetime.now)
@@ -39,7 +38,7 @@ class Author(db.Model):
     # 外链连接用户表，多对多
     bookes = db.relationship('Books',
                              secondary=author_books,
-                             backref=db.backref('author', lazy='dynamic'))
+                             backref=db.backref('author'))
 
 books_tags = db.Table(
     "books_tags",

@@ -3,46 +3,50 @@ from flask import (
     render_template,
     request,
     g,
-session
+    session
 )
-from apps.msg.models import Front_User_Article
+from apps.msg.models import Front_User_Article, ArticleText
 from ..front.decorators import login_required
 from apps.front.models import FrontUser
 from exts import db
-from flask_paginate import Pagination,get_page_parameter
+from flask_paginate import Pagination, get_page_parameter
 from config import PER_PAGE
+
 # 前台页面的本bp
-bp = Blueprint("msg",__name__,url_prefix='/msg')
+bp = Blueprint("msg", __name__, url_prefix='/msg')
 
 # 发帖页面
 username = ""
-@bp.route('/post_msg/',endpoint='post_msg',methods=['POST','GET'])
+
+
+@bp.route('/post_msg/', endpoint='post_msg', methods=['POST', 'GET'])
 @login_required
 def post_msg():
     global username
+    content = "人生苦短 我学python"
     if request.method == "GET":
         import config
         user = FrontUser.query.get(session[config.Front_USER_ID])
         username = user.username
-
-        content ="人生苦短 我学python"
         return render_template("message/post_message.html", content=content)
     else:
-        content=request.form.get("content")
-        title = request.form.get("title")
-        print(title)
+        content = request.form.get("content")
+        title = request.form.get("title1")
         # 字符串切割 把左右两边的p标签切割掉  留下纯文本text
         text = content[3:-4]
-        article = Front_User_Article(title=title,data_text=text)
+        article = Front_User_Article(title=title)
+        article_text = ArticleText(data_text=text)
         user = FrontUser.query.filter_by(username=username).first()
-        # article.articles.append(user)
+        article.texts = article_text
+        db.session.add(article)
         user.articles.append(article)
         db.session.add(user)
         db.session.commit()
-        return ""
+
+        return render_template("message/post_message.html", content=content)
 
 
-@bp.route('/show_msg/',endpoint='show_msg',methods=['POST','GET'])
+@bp.route('/show_msg/', endpoint='show_msg', methods=['POST', 'GET'])
 def index():
     page = request.args.get(get_page_parameter(), type=int, default=1)  # 从前端获取你要查看的页码
     # select * from posts limit start,总共多少条;
@@ -76,5 +80,3 @@ def index():
         'posts': posts
     }
     return render_template('message/show_message.html', **context)
-
-

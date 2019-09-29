@@ -1,48 +1,55 @@
 {% extends 'front/front_base.html' %}
 
 {% block title %}
-ueditor demo
+    ueditor demo
 {% endblock %}
 
 {% block css_or_js %}
     <style type="text/css">
-        #jojo{
+        #jojo {
             padding: 0px 600px;
             color: darkolivegreen;
         }
     </style>
-<!--    <script src="{{ url_for('static', filename="common/js/jquery-1.12.4.min.js") }}"></script>  -->
-<!--    <script src="{{ url_for('static', filename="common/js/ajax_1902.js") }}"></script>  -->
+    <!--    <script src="{{ url_for('static', filename="common/js/jquery-1.12.4.min.js") }}"></script>  -->
+    <!--    <script src="{{ url_for('static', filename="common/js/ajax_1902.js") }}"></script>  -->
     <!-- 实例化编辑器 -->
     <script type="text/javascript">
-    var csrf_token = "{{ csrf_token() }}";
-    $.ajaxSetup({
-        beforeSend: function(xhr, settings) {
-            if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
-                xhr.setRequestHeader("X-CSRFToken", csrf_token);
+        var csrf_token = "{{ csrf_token() }}";
+        $.ajaxSetup({
+            beforeSend: function (xhr, settings) {
+                if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", csrf_token);
+                }
             }
-        }
-    });
-</script>
+        });
+    </script>
     <script src="{{ url_for('static', filename="front/js/front_apost.js") }}"></script>
 {% endblock %}
 
 {% block content %}
-<form action="" method="post">
-    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-    <h1 id="jojo">发帖区</h1>
-    <p>请勾选此次发帖的主题</p>
-        java:<input type="radio" name="title" value="java" >    <!-- 单选框 必须加 name属性  要保证 所有单选都是同一个 name 值 -->
-		python:<input type="radio" name="title"  checked="checked" value="python">
-		c:<input type="radio" name="title" value="c">
-<!-- 加载编辑器的容器 -->
-<script id="container" name="content" type="text/plain">{{ content }}</script>
-<!-- 配置文件 -->
-<script type="text/javascript" src="{{ url_for('static',filename="ueditor/ueditor.config.js") }}"></script>
-<!-- 编辑器源码文件 -->
-<script type="text/javascript" src="{{ url_for('static',filename="ueditor/ueditor.all.js") }}"></script>
-<script type="text/javascript" src="{{ url_for('static',filename="ueditor/lang/zh-cn/zh-cn.js") }}"></script>
-<button id="submitBtn">提交</button>
-    <a href="{{ url_for("msg.show_msg") }}">查看</a>
-</form>
+    <div>
+        <form action="" method="post">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <h1 style="text-align: center">发帖区</h1>
+            <p>请勾选此次发帖的标签</p>
+            java:<input type="radio" name="tag" value="java">    <!-- 单选框 必须加 name属性  要保证 所有单选都是同一个 name 值 -->
+            python:<input type="radio" name="tag" checked="checked" value="python">
+            c:<input type="radio" name="tag" value="c">
+            <hr>
+            <b>话题:</b><input type="text" id="theme1" name="title1" value="">
+            <hr>
+
+            <!-- 加载编辑器的容器 -->
+            <script id="container" name="content" type="text/plain">{{ content }}</script>
+            <!-- 配置文件 -->
+            <script type="text/javascript" src="{{ url_for('static',filename="ueditor/ueditor.config.js") }}"></script>
+            <!-- 编辑器源码文件 -->
+            <script type="text/javascript" src="{{ url_for('static',filename="ueditor/ueditor.all.js") }}"></script>
+            <script type="text/javascript"
+                    src="{{ url_for('static',filename="ueditor/lang/zh-cn/zh-cn.js") }}"></script>
+            <button id="submitBtn">提交</button>
+            <a href="{{ url_for("msg.show_msg") }}">查看</a>
+        </form>
+    </div>
 {% endblock %}
